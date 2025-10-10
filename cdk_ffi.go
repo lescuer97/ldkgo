@@ -1,10 +1,11 @@
 package cdkgo
 
 /*
-#cgo CFLAGS: -I./lib
+#cgo CFLAGS: -I.
 #cgo LDFLAGS: -L./lib -lcdk_ffi
 #include "cdk_ffi.h"
 */
+
 import "C"
 
 import (
