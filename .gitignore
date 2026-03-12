@@ -1,0 +1,5 @@
+.work/
+
+# Generated bindings and native artifacts
+bindings/cdkffi/*.c
+bindings/cdkffi/native/

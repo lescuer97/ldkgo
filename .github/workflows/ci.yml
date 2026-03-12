@@ -1,0 +1,60 @@
+name: cdk-go CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      cdk_ref:
+        description: CDK git ref to build
+        required: false
+        default: main
+
+jobs:
+  generate-and-verify:
+    runs-on: ubuntu-latest
+    env:
+      CDK_REF: ${{ github.event.inputs.cdk_ref || 'main' }}
+      CARGO_TERM_COLOR: always
+    steps:
+      - name: Checkout cdk-go
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Cache Rust and Cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Cache Go build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Generate bindings
+        run: ./scripts/generate-bindings.sh
+
+      - name: Ensure generated bindings are committed
+        run: |
+          git diff --exit-code -- bindings/cdkffi/cdk_ffi.go bindings/cdkffi/cdk_ffi.h bindings/cdkffi/CDK_COMMIT
+
+      - name: Verify Go package
+        run: ./scripts/verify-go.sh
+
+      - name: Upload generated bindings artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdk-go-bindings-${{ github.sha }}
+          path: |
+            bindings/cdkffi

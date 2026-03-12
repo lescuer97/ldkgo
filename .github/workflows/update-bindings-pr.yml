@@ -1,0 +1,62 @@
+name: Update Bindings PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      cdk_ref:
+        description: CDK git ref (tag/branch/SHA)
+        required: false
+        default: main
+  schedule:
+    - cron: "0 6 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  regenerate-and-pr:
+    runs-on: ubuntu-latest
+    env:
+      CDK_REF: ${{ github.event.inputs.cdk_ref || 'main' }}
+      CARGO_TERM_COLOR: always
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Cache Rust and Cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Generate bindings
+        run: ./scripts/generate-bindings.sh
+
+      - name: Verify generated package
+        run: ./scripts/verify-go.sh
+
+      - name: Capture generated CDK commit
+        id: cdk_commit
+        run: echo "value=$(cat bindings/cdkffi/CDK_COMMIT)" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request when bindings changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: update generated cdk go bindings"
+          title: "chore: update generated cdk go bindings"
+          body: |
+            Automated binding refresh.
+
+            - CDK ref requested: `${{ env.CDK_REF }}`
+            - Generated commit: `${{ steps.cdk_commit.outputs.value }}`
+          branch: automation/update-bindings
+          delete-branch: true
+          labels: |
+            bindings
+            automation
