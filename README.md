@@ -38,8 +38,8 @@ make verify
 ## CI/CD model
 
 - `ci.yml`: regenerates and verifies bindings on PR/push and fails if generated files were not committed.
-- `update-bindings-pr.yml`: scheduled/manual workflow that regenerates bindings and opens a PR with updated generated files.
-- `release.yml`: builds release artifacts from committed bindings and publishes per-platform tarballs with native libs.
+- `update-bindings-pr.yml`: scheduled/manual workflow that regenerates bindings and opens a PR with updated generated files and prebuilt native libs (`linux_amd64`, `darwin_amd64`, `darwin_arm64`).
+- `release.yml`: publishes release artifacts from committed bindings/native libs.
 
 This gives you a PR-first flow for generated code updates, then release/tag publication.
 
@@ -49,15 +49,13 @@ This gives you a PR-first flow for generated code updates, then release/tag publ
 go get github.com/asmogo/cdkgo
 ```
 
-At runtime, CGO must be able to load `libcdk_ffi`.
+Prebuilt native libraries are committed in this repository under:
 
-Typical flow:
+- `bindings/cdkffi/native/linux_amd64/libcdk_ffi.so`
+- `bindings/cdkffi/native/darwin_amd64/libcdk_ffi.dylib`
+- `bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib`
 
-1. Download the matching release artifact for your platform.
-2. Extract `bindings/cdkffi/native/libcdk_ffi.*`.
-3. Set runtime linker path before running your app:
-   - Linux: `LD_LIBRARY_PATH=/path/to/native:$LD_LIBRARY_PATH`
-   - macOS: `DYLD_LIBRARY_PATH=/path/to/native:$DYLD_LIBRARY_PATH`
+The package includes platform-specific CGO link settings, so users do not need a separate manual unzip flow.
 
 ## Notes
 

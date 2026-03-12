@@ -13,7 +13,19 @@ on:
 
 jobs:
   generate-and-verify:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            native_path: bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
+            verify_sources: "true"
+          - os: macos-13
+            native_path: bindings/cdkffi/native/darwin_amd64/libcdk_ffi.dylib
+            verify_sources: "false"
+          - os: macos-latest
+            native_path: bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
+            verify_sources: "false"
+    runs-on: ${{ matrix.os }}
     env:
       CDK_REF: ${{ github.event.inputs.cdk_ref || 'main' }}
       CARGO_TERM_COLOR: always
@@ -45,9 +57,14 @@ jobs:
       - name: Generate bindings
         run: ./scripts/generate-bindings.sh
 
-      - name: Ensure generated bindings are committed
+      - name: Ensure generated source bindings are committed
+        if: ${{ matrix.verify_sources == 'true' }}
         run: |
           git diff --exit-code -- bindings/cdkffi/cdk_ffi.go bindings/cdkffi/cdk_ffi.h bindings/cdkffi/CDK_COMMIT
+
+      - name: Ensure generated native library is committed
+        run: |
+          git diff --exit-code -- "${{ matrix.native_path }}"
 
       - name: Verify Go package
         run: ./scripts/verify-go.sh

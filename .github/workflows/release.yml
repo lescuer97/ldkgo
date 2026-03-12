@@ -9,72 +9,41 @@ on:
       release_tag:
         description: Release tag for cdkgo (e.g. v0.1.0)
         required: true
-      cdk_ref:
-        description: Optional CDK ref override (default from bindings/cdkffi/CDK_COMMIT)
-        required: false
 
 permissions:
   contents: write
 
 jobs:
-  build-assets:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    env:
-      CARGO_TERM_COLOR: always
-      CDK_REF: ${{ github.event.inputs.cdk_ref }}
+  publish-release:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout cdkgo
         uses: actions/checkout@v4
-
-      - name: Set CDK ref from committed bindings if not provided
-        if: ${{ env.CDK_REF == '' }}
-        run: echo "CDK_REF=$(cat bindings/cdkffi/CDK_COMMIT)" >> "$GITHUB_ENV"
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
 
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.22"
 
-      - name: Cache Rust and Cargo
-        uses: Swatinem/rust-cache@v2
-
-      - name: Regenerate bindings for selected CDK ref
-        run: ./scripts/generate-bindings.sh
-
-      - name: Validate committed generated files match selected CDK ref
+      - name: Validate committed source bindings exist
         run: |
-          git diff --exit-code -- bindings/cdkffi/cdk_ffi.go bindings/cdkffi/cdk_ffi.h bindings/cdkffi/CDK_COMMIT
+          test -f bindings/cdkffi/cdk_ffi.go
+          test -f bindings/cdkffi/cdk_ffi.h
+          test -f bindings/cdkffi/CDK_COMMIT
 
-      - name: Verify Go package
+      - name: Validate committed native libs exist
+        run: |
+          test -f bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
+          test -f bindings/cdkffi/native/darwin_amd64/libcdk_ffi.dylib
+          test -f bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
+
+      - name: Verify package on Linux
         run: ./scripts/verify-go.sh
 
-      - name: Build release asset
+      - name: Build release archive
         run: |
           mkdir -p dist
-          PLATFORM="${{ runner.os }}-${{ runner.arch }}"
-          tar -czf "dist/cdkgo-${PLATFORM}.tar.gz" bindings/cdkffi
-
-      - name: Upload platform artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cdkgo-${{ runner.os }}-${{ runner.arch }}
-          path: dist/*.tar.gz
-
-  publish-release:
-    runs-on: ubuntu-latest
-    needs: build-assets
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: dist
-          merge-multiple: true
+          tar -czf "dist/cdkgo-bindings-${{ github.ref_name || github.event.inputs.release_tag }}.tar.gz" bindings/cdkffi
 
       - name: Publish release assets
         env:
@@ -90,6 +59,6 @@ jobs:
           else
             gh release create "$TAG" \
               --title "cdkgo $TAG" \
-              --notes "Go bindings release for cdkgo" \
+              --notes "Go bindings release for cdkgo (includes linux+mac prebuilt libcdk_ffi)" \
               dist/*.tar.gz
           fi
