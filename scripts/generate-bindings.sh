@@ -18,9 +18,29 @@ rm -rf "${PACKAGE_DIR}"
 
 if [[ "${OSTYPE:-}" == darwin* ]]; then
     LIB_FILE="${LIB_DIR}/libcdk_ffi.dylib"
+    LIB_EXT="dylib"
+    PLATFORM_OS="darwin"
 else
     LIB_FILE="${LIB_DIR}/libcdk_ffi.so"
+    LIB_EXT="so"
+    PLATFORM_OS="linux"
 fi
+
+UNAME_ARCH="$(uname -m)"
+case "${UNAME_ARCH}" in
+    x86_64)
+        PLATFORM_ARCH="amd64"
+        ;;
+    aarch64|arm64)
+        PLATFORM_ARCH="arm64"
+        ;;
+    *)
+        echo "Unsupported architecture for native artifact naming: ${UNAME_ARCH}" >&2
+        exit 1
+        ;;
+esac
+
+PLATFORM_DIR="${PACKAGE_DIR}/native/${PLATFORM_OS}_${PLATFORM_ARCH}"
 
 pushd "${CDK_DIR}" >/dev/null
 if [ "${BUILD_PROFILE}" = "release" ]; then
@@ -44,9 +64,36 @@ uniffi-bindgen-go "${LIB_FILE}" \
     --out-dir "${OUT_DIR}"
 popd >/dev/null
 
-mkdir -p "${PACKAGE_DIR}/native"
-cp "${LIB_FILE}" "${PACKAGE_DIR}/native/"
+mkdir -p "${PLATFORM_DIR}"
+cp "${LIB_FILE}" "${PLATFORM_DIR}/libcdk_ffi.${LIB_EXT}"
 
 git -C "${CDK_DIR}" rev-parse HEAD > "${PACKAGE_DIR}/CDK_COMMIT"
 
-echo "Generated Go bindings in ${PACKAGE_DIR}"
+cat > "${PACKAGE_DIR}/link_linux_amd64.go" <<'EOF'
+//go:build linux && amd64
+
+package cdk_ffi
+
+// #cgo LDFLAGS: -L${SRCDIR}/native/linux_amd64 -lcdk_ffi -Wl,-rpath,${SRCDIR}/native/linux_amd64 -lm -ldl
+import "C"
+EOF
+
+cat > "${PACKAGE_DIR}/link_darwin_amd64.go" <<'EOF'
+//go:build darwin && amd64
+
+package cdk_ffi
+
+// #cgo LDFLAGS: -L${SRCDIR}/native/darwin_amd64 -lcdk_ffi -Wl,-rpath,${SRCDIR}/native/darwin_amd64 -lm
+import "C"
+EOF
+
+cat > "${PACKAGE_DIR}/link_darwin_arm64.go" <<'EOF'
+//go:build darwin && arm64
+
+package cdk_ffi
+
+// #cgo LDFLAGS: -L${SRCDIR}/native/darwin_arm64 -lcdk_ffi -Wl,-rpath,${SRCDIR}/native/darwin_arm64 -lm
+import "C"
+EOF
+
+echo "Generated Go bindings in ${PACKAGE_DIR} (${PLATFORM_OS}_${PLATFORM_ARCH})"
