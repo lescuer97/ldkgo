@@ -19,18 +19,11 @@ jobs:
           - os: ubuntu-latest
             native_path: bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
             verify_sources: "true"
-            target_arch: ""
             platform_key: linux_amd64
           - os: macos-latest
             native_path: bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
             verify_sources: "false"
-            target_arch: ""
             platform_key: darwin_arm64
-          - os: macos-latest
-            native_path: bindings/cdkffi/native/darwin_amd64/libcdk_ffi.dylib
-            verify_sources: "false"
-            target_arch: x86_64
-            platform_key: darwin_amd64
     runs-on: ${{ matrix.os }}
     env:
       CDK_REF: ${{ github.event.inputs.cdk_ref || 'main' }}
@@ -41,10 +34,6 @@ jobs:
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-
-      - name: Add cross-compilation target
-        if: ${{ matrix.target_arch != '' }}
-        run: rustup target add x86_64-apple-darwin
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -68,9 +57,6 @@ jobs:
 
       - name: Generate bindings
         run: ./scripts/generate-bindings.sh
-        env:
-          TARGET_ARCH: ${{ matrix.target_arch }}
-          SKIP_BINDGEN: ${{ matrix.target_arch != '' && '1' || '' }}
 
       - name: Ensure generated source bindings are committed
         if: ${{ matrix.verify_sources == 'true' }}
@@ -82,7 +68,6 @@ jobs:
           test -f "${{ matrix.native_path }}" || { echo "Native library not found: ${{ matrix.native_path }}"; exit 1; }
 
       - name: Verify Go package
-        if: ${{ matrix.target_arch == '' }}
         run: ./scripts/verify-go.sh
 
       - name: Upload generated bindings artifact
