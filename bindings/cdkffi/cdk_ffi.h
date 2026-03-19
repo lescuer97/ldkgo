@@ -1190,6 +1190,11 @@ RustBuffer uniffi_cdk_ffi_fn_method_paymentrequest_single_use(void* ptr, RustCal
 RustBuffer uniffi_cdk_ffi_fn_method_paymentrequest_to_bech32_string(void* ptr, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_PAYMENTREQUEST_TO_BIP321
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_PAYMENTREQUEST_TO_BIP321
+RustBuffer uniffi_cdk_ffi_fn_method_paymentrequest_to_bip321(void* ptr, RustBuffer bolt11, RustBuffer bolt12, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_PAYMENTREQUEST_TO_STRING_ENCODED
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_PAYMENTREQUEST_TO_STRING_ENCODED
 RustBuffer uniffi_cdk_ffi_fn_method_paymentrequest_to_string_encoded(void* ptr, RustCallStatus *out_status
@@ -1562,12 +1567,12 @@ uint64_t uniffi_cdk_ffi_fn_method_wallet_load_mint_info(void* ptr
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_MELT_BIP353_QUOTE
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_MELT_BIP353_QUOTE
-uint64_t uniffi_cdk_ffi_fn_method_wallet_melt_bip353_quote(void* ptr, RustBuffer bip353_address, RustBuffer amount_msat
+uint64_t uniffi_cdk_ffi_fn_method_wallet_melt_bip353_quote(void* ptr, RustBuffer bip353_address, RustBuffer amount_msat, RustBuffer network
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_MELT_HUMAN_READABLE
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_MELT_HUMAN_READABLE
-uint64_t uniffi_cdk_ffi_fn_method_wallet_melt_human_readable(void* ptr, RustBuffer address, RustBuffer amount_msat
+uint64_t uniffi_cdk_ffi_fn_method_wallet_melt_human_readable(void* ptr, RustBuffer address, RustBuffer amount_msat, RustBuffer network
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_MELT_LIGHTNING_ADDRESS_QUOTE
@@ -1678,6 +1683,11 @@ uint64_t uniffi_cdk_ffi_fn_method_wallet_set_refresh_token(void* ptr, RustBuffer
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_SUBSCRIBE
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_SUBSCRIBE
 uint64_t uniffi_cdk_ffi_fn_method_wallet_subscribe(void* ptr, RustBuffer params
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_SUBSCRIBE_MINT_QUOTE_STATE
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_SUBSCRIBE_MINT_QUOTE_STATE
+uint64_t uniffi_cdk_ffi_fn_method_wallet_subscribe_mint_quote_state(void* ptr, RustBuffer quote_ids, RustBuffer payment_method
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_METHOD_WALLET_SWAP
@@ -2511,6 +2521,11 @@ uint64_t uniffi_cdk_ffi_fn_method_walletsqlitedatabase_update_proofs_state(void*
 uint64_t uniffi_cdk_ffi_fn_method_walletsqlitedatabase_update_saga(void* ptr, RustBuffer saga_json
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_CREATE_BIP321_URI
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_CREATE_BIP321_URI
+RustBuffer uniffi_cdk_ffi_fn_func_create_bip321_uri(RustBuffer creq, RustBuffer bolt11, RustBuffer bolt12, RustCallStatus *out_status
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_CREATE_WALLET_DB
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_CREATE_WALLET_DB
 void* uniffi_cdk_ffi_fn_func_create_wallet_db(RustBuffer backend, RustCallStatus *out_status
@@ -2768,6 +2783,11 @@ RustBuffer uniffi_cdk_ffi_fn_func_npubcash_get_pubkey(RustBuffer nostr_secret_ke
 RustBuffer uniffi_cdk_ffi_fn_func_npubcash_quote_to_mint_quote(RustBuffer quote, RustCallStatus *out_status
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PARSE_BIP321_PAYMENT_INSTRUCTION
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PARSE_BIP321_PAYMENT_INSTRUCTION
+uint64_t uniffi_cdk_ffi_fn_func_parse_bip321_payment_instruction(RustBuffer instruction, RustBuffer network
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PROOF_HAS_DLEQ
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PROOF_HAS_DLEQ
 int8_t uniffi_cdk_ffi_fn_func_proof_has_dleq(RustBuffer proof, RustCallStatus *out_status
@@ -2801,6 +2821,11 @@ RustBuffer uniffi_cdk_ffi_fn_func_proof_y(RustBuffer proof, RustCallStatus *out_
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PROOFS_TOTAL_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_PROOFS_TOTAL_AMOUNT
 RustBuffer uniffi_cdk_ffi_fn_func_proofs_total_amount(RustBuffer proofs, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_RESOLVE_BIP353_PAYMENT_INSTRUCTION
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_RESOLVE_BIP353_PAYMENT_INSTRUCTION
+uint64_t uniffi_cdk_ffi_fn_func_resolve_bip353_payment_instruction(void* wallet, RustBuffer address, RustBuffer network
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_FN_FUNC_TRANSACTION_MATCHES_CONDITIONS
@@ -3086,6 +3111,12 @@ void ffi_cdk_ffi_rust_future_free_void(uint64_t handle
 #ifndef UNIFFI_FFIDEF_FFI_CDK_FFI_RUST_FUTURE_COMPLETE_VOID
 #define UNIFFI_FFIDEF_FFI_CDK_FFI_RUST_FUTURE_COMPLETE_VOID
 void ffi_cdk_ffi_rust_future_complete_void(uint64_t handle, RustCallStatus *out_status
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_CREATE_BIP321_URI
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_CREATE_BIP321_URI
+uint16_t uniffi_cdk_ffi_checksum_func_create_bip321_uri(void
+    
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_CREATE_WALLET_DB
@@ -3394,6 +3425,12 @@ uint16_t uniffi_cdk_ffi_checksum_func_npubcash_quote_to_mint_quote(void
     
 );
 #endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PARSE_BIP321_PAYMENT_INSTRUCTION
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PARSE_BIP321_PAYMENT_INSTRUCTION
+uint16_t uniffi_cdk_ffi_checksum_func_parse_bip321_payment_instruction(void
+    
+);
+#endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PROOF_HAS_DLEQ
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PROOF_HAS_DLEQ
 uint16_t uniffi_cdk_ffi_checksum_func_proof_has_dleq(void
@@ -3433,6 +3470,12 @@ uint16_t uniffi_cdk_ffi_checksum_func_proof_y(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PROOFS_TOTAL_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_PROOFS_TOTAL_AMOUNT
 uint16_t uniffi_cdk_ffi_checksum_func_proofs_total_amount(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_RESOLVE_BIP353_PAYMENT_INSTRUCTION
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_FUNC_RESOLVE_BIP353_PAYMENT_INSTRUCTION
+uint16_t uniffi_cdk_ffi_checksum_func_resolve_bip353_payment_instruction(void
     
 );
 #endif
@@ -3517,6 +3560,12 @@ uint16_t uniffi_cdk_ffi_checksum_method_paymentrequest_single_use(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_PAYMENTREQUEST_TO_BECH32_STRING
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_PAYMENTREQUEST_TO_BECH32_STRING
 uint16_t uniffi_cdk_ffi_checksum_method_paymentrequest_to_bech32_string(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_PAYMENTREQUEST_TO_BIP321
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_PAYMENTREQUEST_TO_BIP321
+uint16_t uniffi_cdk_ffi_checksum_method_paymentrequest_to_bip321(void
     
 );
 #endif
@@ -4015,6 +4064,12 @@ uint16_t uniffi_cdk_ffi_checksum_method_wallet_set_refresh_token(void
 #ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_WALLET_SUBSCRIBE
 #define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_WALLET_SUBSCRIBE
 uint16_t uniffi_cdk_ffi_checksum_method_wallet_subscribe(void
+    
+);
+#endif
+#ifndef UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_WALLET_SUBSCRIBE_MINT_QUOTE_STATE
+#define UNIFFI_FFIDEF_UNIFFI_CDK_FFI_CHECKSUM_METHOD_WALLET_SUBSCRIBE_MINT_QUOTE_STATE
+uint16_t uniffi_cdk_ffi_checksum_method_wallet_subscribe_mint_quote_state(void
     
 );
 #endif
