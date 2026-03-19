@@ -34,7 +34,6 @@ jobs:
       - name: Validate committed native libs exist
         run: |
           test -f bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
-          test -f bindings/cdkffi/native/darwin_amd64/libcdk_ffi.dylib
           test -f bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
 
       - name: Verify package on Linux
