@@ -94,6 +94,9 @@ if [ "${SKIP_BINDGEN:-}" = "1" ]; then
 
     mkdir -p "${PLATFORM_DIR}"
     cp "${LIB_FILE}" "${PLATFORM_DIR}/libcdk_ffi.${LIB_EXT}"
+    if [[ "${PLATFORM_OS}" == "darwin" ]]; then
+        install_name_tool -id "@rpath/libcdk_ffi.dylib" "${PLATFORM_DIR}/libcdk_ffi.dylib"
+    fi
     echo "Built native library for ${PLATFORM_OS}_${PLATFORM_ARCH} (bindgen skipped)"
     exit 0
 fi
@@ -113,6 +116,9 @@ rm -rf "${NATIVE_BACKUP}"
 
 mkdir -p "${PLATFORM_DIR}"
 cp "${LIB_FILE}" "${PLATFORM_DIR}/libcdk_ffi.${LIB_EXT}"
+if [[ "${PLATFORM_OS}" == "darwin" ]]; then
+    install_name_tool -id "@rpath/libcdk_ffi.dylib" "${PLATFORM_DIR}/libcdk_ffi.dylib"
+fi
 
 git -C "${CDK_DIR}" rev-parse HEAD > "${PACKAGE_DIR}/CDK_COMMIT"
 
