@@ -2,5 +2,5 @@
 .idea/
 
 # Generated bindings and native artifacts
-bindings/cdkffi/*.c
+bindings/ldk_node_ffi/*.c
 .artifacts/

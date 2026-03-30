@@ -1,12 +1,9 @@
 SHELL := /usr/bin/env bash
 
-.PHONY: bootstrap install-bindgen generate verify verify-checksums update-checksums clean
+.PHONY: bootstrap generate verify verify-checksums update-checksums clean
 
 bootstrap:
-	./scripts/bootstrap-cdk.sh
-
-install-bindgen:
-	./scripts/install-uniffi-bindgen-go.sh
+	./scripts/bootstrap-ldk-node.sh
 
 generate:
 	./scripts/generate-bindings.sh
@@ -21,4 +18,4 @@ update-checksums:
 	./scripts/update-checksums.sh
 
 clean:
-	rm -rf .work bindings/cdkffi
+	rm -f bindings/ldk_node_ffi/link_linux_amd64.go

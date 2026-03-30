@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
-NATIVE_DIR="${ROOT_DIR}/bindings/cdkffi/native"
+NATIVE_DIR="${ROOT_DIR}/bindings/ldk_node_ffi/native"
 CHECKSUM_FILE="${NATIVE_DIR}/checksums.sha256"
 
 if [ ! -f "${CHECKSUM_FILE}" ]; then

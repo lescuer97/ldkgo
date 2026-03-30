@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate bindings/cdkffi/native/checksums.sha256 from the native
+# Regenerate bindings/ldk_node_ffi/native/checksums.sha256 from the native
 # libraries that are currently present on disk.
 #
 # Called automatically by generate-bindings.sh after building new libraries.
@@ -8,7 +8,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
-NATIVE_DIR="${ROOT_DIR}/bindings/cdkffi/native"
+NATIVE_DIR="${ROOT_DIR}/bindings/ldk_node_ffi/native"
 CHECKSUM_FILE="${NATIVE_DIR}/checksums.sha256"
 
 if command -v sha256sum >/dev/null 2>&1; then

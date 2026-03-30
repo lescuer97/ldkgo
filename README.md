@@ -1,54 +1,45 @@
-# cdkgo
+# ldkgo
 
-Go FFI bindings for [cashubtc/cdk](https://github.com/cashubtc/cdk) (Cashu Development Kit), generated via [uniffi-bindgen-go](https://github.com/NordSecurity/uniffi-bindgen-go).
+Go FFI bindings for an LDK Node native library, packaged for Linux amd64.
 
-Prebuilt native libraries are committed to this repo — downstream consumers only need Go.
+The generated Go bindings and the prebuilt `libldk_node.so` binary are committed to this repository, so downstream consumers only need Go with CGO enabled.
 
 ## Usage
 
 ```bash
-go get github.com/asmogo/cdkgo
+go get github.com/asmogo/ldkgo
 ```
 
-CGO link flags are automatically selected per platform. No manual setup required.
+Import the package from `github.com/asmogo/ldkgo/bindings/ldk_node_ffi`.
 
-### Supported platforms
+## Supported platform
 
-| OS      | Arch  | Library                |
-|---------|-------|------------------------|
-| Linux   | amd64 | `libcdk_ffi.so`        |
-| macOS   | arm64 | `libcdk_ffi.dylib`     |
-| macOS   | amd64 | `libcdk_ffi.dylib`     |
+| OS    | Arch  | Library           |
+|-------|-------|-------------------|
+| Linux | amd64 | `libldk_node.so`  |
 
 ## Development
 
 ### Prerequisites
 
 - Go 1.22+
-- Rust toolchain (stable)
 - `CGO_ENABLED=1`
+- Linux amd64 host
 
-### Regenerating bindings
+Rust and `uniffi-bindgen-go` are not required unless you decide to regenerate the bindings outside this repository's checked-in artifacts.
+
+### Validating bindings
 
 ```bash
-make generate   # clone CDK, build libcdk_ffi, generate Go bindings
-make verify     # CGO_ENABLED=1 go test ./bindings/cdkffi
-make clean      # rm -rf .work bindings/cdkffi
+make generate   # validate checked-in Linux binding artifacts and refresh checksums
+make verify     # CGO_ENABLED=1 go test ./bindings/ldk_node_ffi
+make clean      # remove generated linker stub
 ```
-
-### Environment variables
-
-| Variable               | Default                              | Description                          |
-|------------------------|--------------------------------------|--------------------------------------|
-| `CDK_REF`              | `main`                               | CDK branch, tag, or SHA to build     |
-| `CDK_REPO`             | `https://github.com/cashubtc/cdk.git`| CDK source repository                |
-| `UNIFFI_BINDGEN_GO_TAG`| `v0.5.0+v0.29.5`                     | Pinned `uniffi-bindgen-go` version   |
-| `BUILD_PROFILE`        | `release`                            | Rust build profile                   |
 
 ## CI/CD
 
-| Workflow                  | Trigger              | Description                                               |
-|---------------------------|----------------------|-----------------------------------------------------------|
-| `ci.yml`                  | Push / PR            | Regenerates bindings; fails if committed source has drifted |
-| `update-bindings-pr.yml`  | Scheduled / manual   | Rebuilds cross-platform and opens a PR with updated files |
-| `release.yml`             | `v*` tag             | Validates artifacts and publishes a GitHub release        |
+| Workflow                 | Trigger            | Description                                         |
+|--------------------------|--------------------|-----------------------------------------------------|
+| `ci.yml`                 | Push / PR          | Validates Linux binding artifacts and Go package    |
+| `update-bindings-pr.yml` | Manual / scheduled | Refreshes checksum metadata and opens an update PR  |
+| `release.yml`            | `v*` tag           | Publishes a Linux-only release archive              |

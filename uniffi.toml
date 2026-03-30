@@ -1,4 +1,4 @@
 [bindings.go]
-go_mod = "github.com/asmogo/cdkgo"
-package_name = "cdkffi"
-c_module_filename = "cdk_ffi"
+go_mod = "github.com/lescuer97/ldkgo"
+package_name = "ldk_node"
+c_module_filename = "ldk_node"
