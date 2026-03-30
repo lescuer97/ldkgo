@@ -1,49 +1,22 @@
-name: cdk-go CI
+name: ldkgo CI
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
-    inputs:
-      cdk_ref:
-        description: CDK git ref to build
-        required: false
-        default: v0.15.1
 
 jobs:
   generate-and-verify:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            native_path: bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
-            verify_sources: "true"
-            platform_key: linux_amd64
-          - os: macos-latest
-            native_path: bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
-            verify_sources: "false"
-            platform_key: darwin_arm64
-    runs-on: ${{ matrix.os }}
-    env:
-      CDK_REF: ${{ github.event.inputs.cdk_ref || 'v0.15.1' }}
-      CARGO_TERM_COLOR: always
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout cdk-go
+      - name: Checkout ldkgo
         uses: actions/checkout@v4
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
 
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.22"
-
-      - name: Cache Rust and Cargo
-        uses: Swatinem/rust-cache@v2
-        with:
-          key: ${{ matrix.platform_key }}
 
       - name: Cache Go build
         uses: actions/cache@v4
@@ -59,13 +32,17 @@ jobs:
         run: ./scripts/generate-bindings.sh
 
       - name: Ensure generated source bindings are committed
-        if: ${{ matrix.verify_sources == 'true' }}
         run: |
-          git diff --exit-code -- bindings/cdkffi/cdk_ffi.go bindings/cdkffi/cdk_ffi.h bindings/cdkffi/CDK_COMMIT
+          git diff --exit-code -- \
+            bindings/ldk_node_ffi/ldk_node.go \
+            bindings/ldk_node_ffi/ldk_node.h \
+            bindings/ldk_node_ffi/LDK_NODE_COMMIT \
+            bindings/ldk_node_ffi/link_linux_amd64.go \
+            bindings/ldk_node_ffi/native/checksums.sha256
 
       - name: Verify native library was built
         run: |
-          test -f "${{ matrix.native_path }}" || { echo "Native library not found: ${{ matrix.native_path }}"; exit 1; }
+          test -f bindings/ldk_node_ffi/native/linux_amd64/libldk_node.so || { echo "Native library not found: bindings/ldk_node_ffi/native/linux_amd64/libldk_node.so"; exit 1; }
 
       - name: Verify native library checksums
         run: ./scripts/verify-checksums.sh
@@ -76,6 +53,6 @@ jobs:
       - name: Upload generated bindings artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cdk-go-bindings-${{ matrix.platform_key }}-${{ github.sha }}
+          name: ldkgo-bindings-linux-amd64-${{ github.sha }}
           path: |
-            bindings/cdkffi
+            bindings/ldk_node_ffi

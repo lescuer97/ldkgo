@@ -1,4 +1,4 @@
-name: cdkgo Release
+name: ldkgo Release
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: Release tag for cdkgo (e.g. v0.1.0)
+        description: Release tag for ldkgo (e.g. v0.1.0)
         required: true
 
 permissions:
@@ -17,7 +17,7 @@ jobs:
   publish-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout cdkgo
+      - name: Checkout ldkgo
         uses: actions/checkout@v4
 
       - name: Setup Go
@@ -27,14 +27,13 @@ jobs:
 
       - name: Validate committed source bindings exist
         run: |
-          test -f bindings/cdkffi/cdk_ffi.go
-          test -f bindings/cdkffi/cdk_ffi.h
-          test -f bindings/cdkffi/CDK_COMMIT
+          test -f bindings/ldk_node_ffi/ldk_node.go
+          test -f bindings/ldk_node_ffi/ldk_node.h
+          test -f bindings/ldk_node_ffi/LDK_NODE_COMMIT
 
       - name: Validate committed native libs exist
         run: |
-          test -f bindings/cdkffi/native/linux_amd64/libcdk_ffi.so
-          test -f bindings/cdkffi/native/darwin_arm64/libcdk_ffi.dylib
+          test -f bindings/ldk_node_ffi/native/linux_amd64/libldk_node.so
 
       - name: Verify native library checksums
         run: ./scripts/verify-checksums.sh
@@ -45,7 +44,7 @@ jobs:
       - name: Build release archive
         run: |
           mkdir -p dist
-          tar -czf "dist/cdkgo-bindings-${{ github.ref_name || github.event.inputs.release_tag }}.tar.gz" bindings/cdkffi
+          tar -czf "dist/ldkgo-bindings-${{ github.ref_name || github.event.inputs.release_tag }}.tar.gz" bindings/ldk_node_ffi
 
       - name: Publish release assets
         env:
@@ -53,14 +52,14 @@ jobs:
         run: |
           TAG="${{ github.ref_name }}"
           if [ -n "${{ github.event.inputs.release_tag }}" ]; then
-            TAG="${{ github.event.inputs.release_tag }}"
+              TAG="${{ github.event.inputs.release_tag }}"
           fi
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" dist/*.tar.gz --clobber
           else
             gh release create "$TAG" \
-              --title "cdkgo $TAG" \
-              --notes "Go bindings release for cdkgo (includes linux+mac prebuilt libcdk_ffi)" \
+              --title "ldkgo $TAG" \
+              --notes "Go bindings release for ldkgo (includes linux amd64 prebuilt libldk_node.so)" \
               dist/*.tar.gz
           fi
