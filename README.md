@@ -7,10 +7,10 @@ The generated Go bindings and the prebuilt `libldk_node.so` binary are committed
 ## Usage
 
 ```bash
-go get github.com/asmogo/ldkgo
+go get github.com/lescuer97/ldkgo
 ```
 
-Import the package from `github.com/asmogo/ldkgo/bindings/ldk_node_ffi`.
+Import the package from `github.com/lescuer97/ldkgo/bindings/ldk_node_ffi`.
 
 ## Supported platform
 
