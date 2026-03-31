@@ -57,14 +57,14 @@ static void call_UniffiRustFutureContinuationCallback(
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_FREE
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_FREE
-typedef void (*UniffiForeignFutureFree)(uint64_t handle);
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_DROPPED_CALLBACK
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_DROPPED_CALLBACK
+typedef void (*UniffiForeignFutureDroppedCallback)(uint64_t handle);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
-static void call_UniffiForeignFutureFree(
-				UniffiForeignFutureFree cb, uint64_t handle)
+static void call_UniffiForeignFutureDroppedCallback(
+				UniffiForeignFutureDroppedCallback cb, uint64_t handle)
 {
 	return cb(handle);
 }
@@ -85,293 +85,285 @@ static void call_UniffiCallbackInterfaceFree(
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE
-typedef struct UniffiForeignFuture {
-    uint64_t handle;
-    UniffiForeignFutureFree free;
-} UniffiForeignFuture;
+#ifndef UNIFFI_FFIDEF_CALLBACK_INTERFACE_CLONE
+#define UNIFFI_FFIDEF_CALLBACK_INTERFACE_CLONE
+typedef uint64_t (*UniffiCallbackInterfaceClone)(uint64_t handle);
+
+// Making function static works arround:
+// https://github.com/golang/go/issues/11263
+static uint64_t call_UniffiCallbackInterfaceClone(
+				UniffiCallbackInterfaceClone cb, uint64_t handle)
+{
+	return cb(handle);
+}
+
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U8
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U8
-typedef struct UniffiForeignFutureStructU8 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_DROPPED_CALLBACK_STRUCT
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_DROPPED_CALLBACK_STRUCT
+typedef struct UniffiForeignFutureDroppedCallbackStruct {
+    uint64_t handle;
+    UniffiForeignFutureDroppedCallback free;
+} UniffiForeignFutureDroppedCallbackStruct;
+
+#endif
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U8
+typedef struct UniffiForeignFutureResultU8 {
     uint8_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructU8;
+} UniffiForeignFutureResultU8;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U8
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U8
-typedef void (*UniffiForeignFutureCompleteU8)(uint64_t callback_data, UniffiForeignFutureStructU8 result);
+typedef void (*UniffiForeignFutureCompleteU8)(uint64_t callback_data, UniffiForeignFutureResultU8 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteU8(
-				UniffiForeignFutureCompleteU8 cb, uint64_t callback_data, UniffiForeignFutureStructU8 result)
+				UniffiForeignFutureCompleteU8 cb, uint64_t callback_data, UniffiForeignFutureResultU8 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I8
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I8
-typedef struct UniffiForeignFutureStructI8 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I8
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I8
+typedef struct UniffiForeignFutureResultI8 {
     int8_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructI8;
+} UniffiForeignFutureResultI8;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I8
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I8
-typedef void (*UniffiForeignFutureCompleteI8)(uint64_t callback_data, UniffiForeignFutureStructI8 result);
+typedef void (*UniffiForeignFutureCompleteI8)(uint64_t callback_data, UniffiForeignFutureResultI8 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteI8(
-				UniffiForeignFutureCompleteI8 cb, uint64_t callback_data, UniffiForeignFutureStructI8 result)
+				UniffiForeignFutureCompleteI8 cb, uint64_t callback_data, UniffiForeignFutureResultI8 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U16
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U16
-typedef struct UniffiForeignFutureStructU16 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U16
+typedef struct UniffiForeignFutureResultU16 {
     uint16_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructU16;
+} UniffiForeignFutureResultU16;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U16
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U16
-typedef void (*UniffiForeignFutureCompleteU16)(uint64_t callback_data, UniffiForeignFutureStructU16 result);
+typedef void (*UniffiForeignFutureCompleteU16)(uint64_t callback_data, UniffiForeignFutureResultU16 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteU16(
-				UniffiForeignFutureCompleteU16 cb, uint64_t callback_data, UniffiForeignFutureStructU16 result)
+				UniffiForeignFutureCompleteU16 cb, uint64_t callback_data, UniffiForeignFutureResultU16 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I16
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I16
-typedef struct UniffiForeignFutureStructI16 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I16
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I16
+typedef struct UniffiForeignFutureResultI16 {
     int16_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructI16;
+} UniffiForeignFutureResultI16;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I16
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I16
-typedef void (*UniffiForeignFutureCompleteI16)(uint64_t callback_data, UniffiForeignFutureStructI16 result);
+typedef void (*UniffiForeignFutureCompleteI16)(uint64_t callback_data, UniffiForeignFutureResultI16 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteI16(
-				UniffiForeignFutureCompleteI16 cb, uint64_t callback_data, UniffiForeignFutureStructI16 result)
+				UniffiForeignFutureCompleteI16 cb, uint64_t callback_data, UniffiForeignFutureResultI16 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U32
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U32
-typedef struct UniffiForeignFutureStructU32 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U32
+typedef struct UniffiForeignFutureResultU32 {
     uint32_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructU32;
+} UniffiForeignFutureResultU32;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U32
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U32
-typedef void (*UniffiForeignFutureCompleteU32)(uint64_t callback_data, UniffiForeignFutureStructU32 result);
+typedef void (*UniffiForeignFutureCompleteU32)(uint64_t callback_data, UniffiForeignFutureResultU32 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteU32(
-				UniffiForeignFutureCompleteU32 cb, uint64_t callback_data, UniffiForeignFutureStructU32 result)
+				UniffiForeignFutureCompleteU32 cb, uint64_t callback_data, UniffiForeignFutureResultU32 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I32
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I32
-typedef struct UniffiForeignFutureStructI32 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I32
+typedef struct UniffiForeignFutureResultI32 {
     int32_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructI32;
+} UniffiForeignFutureResultI32;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I32
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I32
-typedef void (*UniffiForeignFutureCompleteI32)(uint64_t callback_data, UniffiForeignFutureStructI32 result);
+typedef void (*UniffiForeignFutureCompleteI32)(uint64_t callback_data, UniffiForeignFutureResultI32 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteI32(
-				UniffiForeignFutureCompleteI32 cb, uint64_t callback_data, UniffiForeignFutureStructI32 result)
+				UniffiForeignFutureCompleteI32 cb, uint64_t callback_data, UniffiForeignFutureResultI32 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U64
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_U64
-typedef struct UniffiForeignFutureStructU64 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_U64
+typedef struct UniffiForeignFutureResultU64 {
     uint64_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructU64;
+} UniffiForeignFutureResultU64;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U64
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_U64
-typedef void (*UniffiForeignFutureCompleteU64)(uint64_t callback_data, UniffiForeignFutureStructU64 result);
+typedef void (*UniffiForeignFutureCompleteU64)(uint64_t callback_data, UniffiForeignFutureResultU64 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteU64(
-				UniffiForeignFutureCompleteU64 cb, uint64_t callback_data, UniffiForeignFutureStructU64 result)
+				UniffiForeignFutureCompleteU64 cb, uint64_t callback_data, UniffiForeignFutureResultU64 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I64
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_I64
-typedef struct UniffiForeignFutureStructI64 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_I64
+typedef struct UniffiForeignFutureResultI64 {
     int64_t returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructI64;
+} UniffiForeignFutureResultI64;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I64
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_I64
-typedef void (*UniffiForeignFutureCompleteI64)(uint64_t callback_data, UniffiForeignFutureStructI64 result);
+typedef void (*UniffiForeignFutureCompleteI64)(uint64_t callback_data, UniffiForeignFutureResultI64 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteI64(
-				UniffiForeignFutureCompleteI64 cb, uint64_t callback_data, UniffiForeignFutureStructI64 result)
+				UniffiForeignFutureCompleteI64 cb, uint64_t callback_data, UniffiForeignFutureResultI64 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F32
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F32
-typedef struct UniffiForeignFutureStructF32 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_F32
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_F32
+typedef struct UniffiForeignFutureResultF32 {
     float returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructF32;
+} UniffiForeignFutureResultF32;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F32
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F32
-typedef void (*UniffiForeignFutureCompleteF32)(uint64_t callback_data, UniffiForeignFutureStructF32 result);
+typedef void (*UniffiForeignFutureCompleteF32)(uint64_t callback_data, UniffiForeignFutureResultF32 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteF32(
-				UniffiForeignFutureCompleteF32 cb, uint64_t callback_data, UniffiForeignFutureStructF32 result)
+				UniffiForeignFutureCompleteF32 cb, uint64_t callback_data, UniffiForeignFutureResultF32 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F64
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_F64
-typedef struct UniffiForeignFutureStructF64 {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_F64
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_F64
+typedef struct UniffiForeignFutureResultF64 {
     double returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructF64;
+} UniffiForeignFutureResultF64;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F64
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_F64
-typedef void (*UniffiForeignFutureCompleteF64)(uint64_t callback_data, UniffiForeignFutureStructF64 result);
+typedef void (*UniffiForeignFutureCompleteF64)(uint64_t callback_data, UniffiForeignFutureResultF64 result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteF64(
-				UniffiForeignFutureCompleteF64 cb, uint64_t callback_data, UniffiForeignFutureStructF64 result)
+				UniffiForeignFutureCompleteF64 cb, uint64_t callback_data, UniffiForeignFutureResultF64 result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_POINTER
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_POINTER
-typedef struct UniffiForeignFutureStructPointer {
-    void* returnValue;
-    RustCallStatus callStatus;
-} UniffiForeignFutureStructPointer;
-
-#endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_POINTER
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_POINTER
-typedef void (*UniffiForeignFutureCompletePointer)(uint64_t callback_data, UniffiForeignFutureStructPointer result);
-
-// Making function static works arround:
-// https://github.com/golang/go/issues/11263
-static void call_UniffiForeignFutureCompletePointer(
-				UniffiForeignFutureCompletePointer cb, uint64_t callback_data, UniffiForeignFutureStructPointer result)
-{
-	return cb(callback_data, result);
-}
-
-
-#endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_RUST_BUFFER
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_RUST_BUFFER
-typedef struct UniffiForeignFutureStructRustBuffer {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_RUST_BUFFER
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_RUST_BUFFER
+typedef struct UniffiForeignFutureResultRustBuffer {
     RustBuffer returnValue;
     RustCallStatus callStatus;
-} UniffiForeignFutureStructRustBuffer;
+} UniffiForeignFutureResultRustBuffer;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_RUST_BUFFER
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_RUST_BUFFER
-typedef void (*UniffiForeignFutureCompleteRustBuffer)(uint64_t callback_data, UniffiForeignFutureStructRustBuffer result);
+typedef void (*UniffiForeignFutureCompleteRustBuffer)(uint64_t callback_data, UniffiForeignFutureResultRustBuffer result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteRustBuffer(
-				UniffiForeignFutureCompleteRustBuffer cb, uint64_t callback_data, UniffiForeignFutureStructRustBuffer result)
+				UniffiForeignFutureCompleteRustBuffer cb, uint64_t callback_data, UniffiForeignFutureResultRustBuffer result)
 {
 	return cb(callback_data, result);
 }
 
 
 #endif
-#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_VOID
-#define UNIFFI_FFIDEF_FOREIGN_FUTURE_STRUCT_VOID
-typedef struct UniffiForeignFutureStructVoid {
+#ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_VOID
+#define UNIFFI_FFIDEF_FOREIGN_FUTURE_RESULT_VOID
+typedef struct UniffiForeignFutureResultVoid {
     RustCallStatus callStatus;
-} UniffiForeignFutureStructVoid;
+} UniffiForeignFutureResultVoid;
 
 #endif
 #ifndef UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_VOID
 #define UNIFFI_FFIDEF_FOREIGN_FUTURE_COMPLETE_VOID
-typedef void (*UniffiForeignFutureCompleteVoid)(uint64_t callback_data, UniffiForeignFutureStructVoid result);
+typedef void (*UniffiForeignFutureCompleteVoid)(uint64_t callback_data, UniffiForeignFutureResultVoid result);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiForeignFutureCompleteVoid(
-				UniffiForeignFutureCompleteVoid cb, uint64_t callback_data, UniffiForeignFutureStructVoid result)
+				UniffiForeignFutureCompleteVoid cb, uint64_t callback_data, UniffiForeignFutureResultVoid result)
 {
 	return cb(callback_data, result);
 }
@@ -394,14 +386,14 @@ static void call_UniffiCallbackInterfaceLogWriterMethod0(
 #endif
 #ifndef UNIFFI_FFIDEF_CALLBACK_INTERFACE_VSS_HEADER_PROVIDER_METHOD0
 #define UNIFFI_FFIDEF_CALLBACK_INTERFACE_VSS_HEADER_PROVIDER_METHOD0
-typedef void (*UniffiCallbackInterfaceVssHeaderProviderMethod0)(uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFuture* uniffi_out_return);
+typedef void (*UniffiCallbackInterfaceVssHeaderProviderMethod0)(uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFutureDroppedCallbackStruct* uniffi_out_dropped_callback);
 
 // Making function static works arround:
 // https://github.com/golang/go/issues/11263
 static void call_UniffiCallbackInterfaceVssHeaderProviderMethod0(
-				UniffiCallbackInterfaceVssHeaderProviderMethod0 cb, uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFuture* uniffi_out_return)
+				UniffiCallbackInterfaceVssHeaderProviderMethod0 cb, uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFutureDroppedCallbackStruct* uniffi_out_dropped_callback)
 {
-	return cb(uniffi_handle, request, uniffi_future_callback, uniffi_callback_data, uniffi_out_return);
+	return cb(uniffi_handle, request, uniffi_future_callback, uniffi_callback_data, uniffi_out_dropped_callback);
 }
 
 
@@ -409,213 +401,215 @@ static void call_UniffiCallbackInterfaceVssHeaderProviderMethod0(
 #ifndef UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_LOG_WRITER
 #define UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_LOG_WRITER
 typedef struct UniffiVTableCallbackInterfaceLogWriter {
-    UniffiCallbackInterfaceLogWriterMethod0 log;
     UniffiCallbackInterfaceFree uniffiFree;
+    UniffiCallbackInterfaceClone uniffiClone;
+    UniffiCallbackInterfaceLogWriterMethod0 log;
 } UniffiVTableCallbackInterfaceLogWriter;
 
 #endif
 #ifndef UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_VSS_HEADER_PROVIDER
 #define UNIFFI_FFIDEF_V_TABLE_CALLBACK_INTERFACE_VSS_HEADER_PROVIDER
 typedef struct UniffiVTableCallbackInterfaceVssHeaderProvider {
-    UniffiCallbackInterfaceVssHeaderProviderMethod0 getHeaders;
     UniffiCallbackInterfaceFree uniffiFree;
+    UniffiCallbackInterfaceClone uniffiClone;
+    UniffiCallbackInterfaceVssHeaderProviderMethod0 getHeaders;
 } UniffiVTableCallbackInterfaceVssHeaderProvider;
 
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BUILDER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BUILDER
-void* uniffi_ldk_node_fn_clone_builder(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_builder(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BUILDER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BUILDER
-void uniffi_ldk_node_fn_free_builder(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_builder(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_FROM_CONFIG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_FROM_CONFIG
-void* uniffi_ldk_node_fn_constructor_builder_from_config(RustBuffer config, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_builder_from_config(RustBuffer config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_NEW
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BUILDER_NEW
-void* uniffi_ldk_node_fn_constructor_builder_new(RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_builder_new(RustCallStatus *out_status
     
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD
-void* uniffi_ldk_node_fn_method_builder_build(void* ptr, void* node_entropy, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build(uint64_t ptr, uint64_t node_entropy, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_FS_STORE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_FS_STORE
-void* uniffi_ldk_node_fn_method_builder_build_with_fs_store(void* ptr, void* node_entropy, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build_with_fs_store(uint64_t ptr, uint64_t node_entropy, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store(void* ptr, void* node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer fixed_headers, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build_with_vss_store(uint64_t ptr, uint64_t node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer fixed_headers, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_FIXED_HEADERS
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(void* ptr, void* node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer fixed_headers, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_fixed_headers(uint64_t ptr, uint64_t node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer fixed_headers, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_HEADER_PROVIDER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_HEADER_PROVIDER
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_header_provider(void* ptr, void* node_entropy, RustBuffer vss_url, RustBuffer store_id, void* header_provider, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_header_provider(uint64_t ptr, uint64_t node_entropy, RustBuffer vss_url, RustBuffer store_id, uint64_t header_provider, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_LNURL_AUTH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_BUILD_WITH_VSS_STORE_AND_LNURL_AUTH
-void* uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_lnurl_auth(void* ptr, void* node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer lnurl_auth_server_url, RustBuffer fixed_headers, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_builder_build_with_vss_store_and_lnurl_auth(uint64_t ptr, uint64_t node_entropy, RustBuffer vss_url, RustBuffer store_id, RustBuffer lnurl_auth_server_url, RustBuffer fixed_headers, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ANNOUNCEMENT_ADDRESSES
-void uniffi_ldk_node_fn_method_builder_set_announcement_addresses(void* ptr, RustBuffer announcement_addresses, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_announcement_addresses(uint64_t ptr, RustBuffer announcement_addresses, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ASYNC_PAYMENTS_ROLE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_ASYNC_PAYMENTS_ROLE
-void uniffi_ldk_node_fn_method_builder_set_async_payments_role(void* ptr, RustBuffer role, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_async_payments_role(uint64_t ptr, RustBuffer role, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_REST
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_REST
-void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rest(void* ptr, RustBuffer rest_host, uint16_t rest_port, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rest(uint64_t ptr, RustBuffer rest_host, uint16_t rest_port, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_BITCOIND_RPC
-void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(void* ptr, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_chain_source_bitcoind_rpc(uint64_t ptr, RustBuffer rpc_host, uint16_t rpc_port, RustBuffer rpc_user, RustBuffer rpc_password, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ELECTRUM
-void uniffi_ldk_node_fn_method_builder_set_chain_source_electrum(void* ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_chain_source_electrum(uint64_t ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CHAIN_SOURCE_ESPLORA
-void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(void* ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_chain_source_esplora(uint64_t ptr, RustBuffer server_url, RustBuffer config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CUSTOM_LOGGER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_CUSTOM_LOGGER
-void uniffi_ldk_node_fn_method_builder_set_custom_logger(void* ptr, void* log_writer, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_custom_logger(uint64_t ptr, uint64_t log_writer, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_FILESYSTEM_LOGGER
-void uniffi_ldk_node_fn_method_builder_set_filesystem_logger(void* ptr, RustBuffer log_file_path, RustBuffer max_log_level, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_filesystem_logger(uint64_t ptr, RustBuffer log_file_path, RustBuffer max_log_level, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_P2P
-void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_gossip_source_p2p(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_GOSSIP_SOURCE_RGS
-void uniffi_ldk_node_fn_method_builder_set_gossip_source_rgs(void* ptr, RustBuffer rgs_server_url, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_gossip_source_rgs(uint64_t ptr, RustBuffer rgs_server_url, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS1
-void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps1(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps1(uint64_t ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LIQUIDITY_SOURCE_LSPS2
-void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_liquidity_source_lsps2(uint64_t ptr, RustBuffer node_id, RustBuffer address, RustBuffer token, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LISTENING_ADDRESSES
-void uniffi_ldk_node_fn_method_builder_set_listening_addresses(void* ptr, RustBuffer listening_addresses, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_listening_addresses(uint64_t ptr, RustBuffer listening_addresses, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_LOG_FACADE_LOGGER
-void uniffi_ldk_node_fn_method_builder_set_log_facade_logger(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_log_facade_logger(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NETWORK
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NETWORK
-void uniffi_ldk_node_fn_method_builder_set_network(void* ptr, RustBuffer network, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_network(uint64_t ptr, RustBuffer network, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NODE_ALIAS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_NODE_ALIAS
-void uniffi_ldk_node_fn_method_builder_set_node_alias(void* ptr, RustBuffer node_alias, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_node_alias(uint64_t ptr, RustBuffer node_alias, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_PATHFINDING_SCORES_SOURCE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_PATHFINDING_SCORES_SOURCE
-void uniffi_ldk_node_fn_method_builder_set_pathfinding_scores_source(void* ptr, RustBuffer url, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_pathfinding_scores_source(uint64_t ptr, RustBuffer url, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_STORAGE_DIR_PATH
-void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(void* ptr, RustBuffer storage_dir_path, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_storage_dir_path(uint64_t ptr, RustBuffer storage_dir_path, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_TOR_CONFIG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_TOR_CONFIG
-void uniffi_ldk_node_fn_method_builder_set_tor_config(void* ptr, RustBuffer tor_config, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_tor_config(uint64_t ptr, RustBuffer tor_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_WALLET_RECOVERY_MODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BUILDER_SET_WALLET_RECOVERY_MODE
-void uniffi_ldk_node_fn_method_builder_set_wallet_recovery_mode(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_builder_set_wallet_recovery_mode(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_FEERATE
-void* uniffi_ldk_node_fn_clone_feerate(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_feerate(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_FEERATE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_FEERATE
-void uniffi_ldk_node_fn_free_feerate(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_feerate(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_KWU
-void* uniffi_ldk_node_fn_constructor_feerate_from_sat_per_kwu(uint64_t sat_kwu, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_feerate_from_sat_per_kwu(uint64_t sat_kwu, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_FEERATE_FROM_SAT_PER_VB_UNCHECKED
-void* uniffi_ldk_node_fn_constructor_feerate_from_sat_per_vb_unchecked(uint64_t sat_vb, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_feerate_from_sat_per_vb_unchecked(uint64_t sat_vb, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_KWU
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_KWU
-uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_kwu(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_kwu(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_CEIL
-uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_ceil(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_ceil(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_FEERATE_TO_SAT_PER_VB_FLOOR
-uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_floor(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_feerate_to_sat_per_vb_floor(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LOGWRITER
-void* uniffi_ldk_node_fn_clone_logwriter(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_logwriter(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LOGWRITER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LOGWRITER
-void uniffi_ldk_node_fn_free_logwriter(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_logwriter(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_INIT_CALLBACK_VTABLE_LOGWRITER
@@ -625,237 +619,237 @@ void uniffi_ldk_node_fn_init_callback_vtable_logwriter(UniffiVTableCallbackInter
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LOGWRITER_LOG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LOGWRITER_LOG
-void uniffi_ldk_node_fn_method_logwriter_log(void* ptr, RustBuffer record, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_logwriter_log(uint64_t ptr, RustBuffer record, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODE
-void* uniffi_ldk_node_fn_clone_node(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_node(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODE
-void uniffi_ldk_node_fn_free_node(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_node(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ANNOUNCEMENT_ADDRESSES
-RustBuffer uniffi_ldk_node_fn_method_node_announcement_addresses(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_announcement_addresses(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT11_PAYMENT
-void* uniffi_ldk_node_fn_method_node_bolt11_payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_bolt11_payment(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT12_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_BOLT12_PAYMENT
-void* uniffi_ldk_node_fn_method_node_bolt12_payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_bolt12_payment(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CLOSE_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CLOSE_CHANNEL
-void uniffi_ldk_node_fn_method_node_close_channel(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_close_channel(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONFIG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONFIG
-RustBuffer uniffi_ldk_node_fn_method_node_config(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_config(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONNECT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_CONNECT
-void uniffi_ldk_node_fn_method_node_connect(void* ptr, RustBuffer node_id, RustBuffer address, int8_t persist, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_connect(uint64_t ptr, RustBuffer node_id, RustBuffer address, int8_t persist, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_DISCONNECT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_DISCONNECT
-void uniffi_ldk_node_fn_method_node_disconnect(void* ptr, RustBuffer node_id, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_disconnect(uint64_t ptr, RustBuffer node_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EVENT_HANDLED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EVENT_HANDLED
-void uniffi_ldk_node_fn_method_node_event_handled(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_event_handled(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EXPORT_PATHFINDING_SCORES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_EXPORT_PATHFINDING_SCORES
-RustBuffer uniffi_ldk_node_fn_method_node_export_pathfinding_scores(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_export_pathfinding_scores(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_FORCE_CLOSE_CHANNEL
-void uniffi_ldk_node_fn_method_node_force_close_channel(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer reason, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_force_close_channel(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer reason, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_BALANCES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_BALANCES
-RustBuffer uniffi_ldk_node_fn_method_node_list_balances(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_list_balances(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_CHANNELS
-RustBuffer uniffi_ldk_node_fn_method_node_list_channels(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_list_channels(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PAYMENTS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PAYMENTS
-RustBuffer uniffi_ldk_node_fn_method_node_list_payments(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_list_payments(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PEERS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LIST_PEERS
-RustBuffer uniffi_ldk_node_fn_method_node_list_peers(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_list_peers(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LISTENING_ADDRESSES
-RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_listening_addresses(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LNURL_AUTH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LNURL_AUTH
-void uniffi_ldk_node_fn_method_node_lnurl_auth(void* ptr, RustBuffer lnurl, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_lnurl_auth(uint64_t ptr, RustBuffer lnurl, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_LSPS1_LIQUIDITY
-void* uniffi_ldk_node_fn_method_node_lsps1_liquidity(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_lsps1_liquidity(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NETWORK_GRAPH
-void* uniffi_ldk_node_fn_method_node_network_graph(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_network_graph(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT
-RustBuffer uniffi_ldk_node_fn_method_node_next_event(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_next_event(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT_ASYNC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NEXT_EVENT_ASYNC
-uint64_t uniffi_ldk_node_fn_method_node_next_event_async(void* ptr
+uint64_t uniffi_ldk_node_fn_method_node_next_event_async(uint64_t ptr
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ALIAS
-RustBuffer uniffi_ldk_node_fn_method_node_node_alias(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_node_alias(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ID
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_NODE_ID
-RustBuffer uniffi_ldk_node_fn_method_node_node_id(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_node_id(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ONCHAIN_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_ONCHAIN_PAYMENT
-void* uniffi_ldk_node_fn_method_node_onchain_payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_onchain_payment(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL
-RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel(void* ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel(uint64_t ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL_WITH_ALL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_ANNOUNCED_CHANNEL_WITH_ALL
-RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel_with_all(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_open_announced_channel_with_all(uint64_t ptr, RustBuffer node_id, RustBuffer address, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL
-RustBuffer uniffi_ldk_node_fn_method_node_open_channel(void* ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_open_channel(uint64_t ptr, RustBuffer node_id, RustBuffer address, uint64_t channel_amount_sats, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL_WITH_ALL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_OPEN_CHANNEL_WITH_ALL
-RustBuffer uniffi_ldk_node_fn_method_node_open_channel_with_all(void* ptr, RustBuffer node_id, RustBuffer address, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_open_channel_with_all(uint64_t ptr, RustBuffer node_id, RustBuffer address, RustBuffer push_to_counterparty_msat, RustBuffer channel_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_PAYMENT
-RustBuffer uniffi_ldk_node_fn_method_node_payment(void* ptr, RustBuffer payment_id, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_payment(uint64_t ptr, RustBuffer payment_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_REMOVE_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_REMOVE_PAYMENT
-void uniffi_ldk_node_fn_method_node_remove_payment(void* ptr, RustBuffer payment_id, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_remove_payment(uint64_t ptr, RustBuffer payment_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SIGN_MESSAGE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SIGN_MESSAGE
-RustBuffer uniffi_ldk_node_fn_method_node_sign_message(void* ptr, RustBuffer msg, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_sign_message(uint64_t ptr, RustBuffer msg, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_IN
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_IN
-void uniffi_ldk_node_fn_method_node_splice_in(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, uint64_t splice_amount_sats, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_splice_in(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, uint64_t splice_amount_sats, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_IN_WITH_ALL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_IN_WITH_ALL
-void uniffi_ldk_node_fn_method_node_splice_in_with_all(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_splice_in_with_all(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_OUT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPLICE_OUT
-void uniffi_ldk_node_fn_method_node_splice_out(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer address, uint64_t splice_amount_sats, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_splice_out(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer address, uint64_t splice_amount_sats, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPONTANEOUS_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SPONTANEOUS_PAYMENT
-void* uniffi_ldk_node_fn_method_node_spontaneous_payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_spontaneous_payment(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_START
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_START
-void uniffi_ldk_node_fn_method_node_start(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_start(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STATUS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STATUS
-RustBuffer uniffi_ldk_node_fn_method_node_status(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_status(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STOP
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_STOP
-void uniffi_ldk_node_fn_method_node_stop(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_stop(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SYNC_WALLETS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_SYNC_WALLETS
-void uniffi_ldk_node_fn_method_node_sync_wallets(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_sync_wallets(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UNIFIED_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UNIFIED_PAYMENT
-void* uniffi_ldk_node_fn_method_node_unified_payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_node_unified_payment(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_CHANNEL_CONFIG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_UPDATE_CHANNEL_CONFIG
-void uniffi_ldk_node_fn_method_node_update_channel_config(void* ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer channel_config, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_node_update_channel_config(uint64_t ptr, RustBuffer user_channel_id, RustBuffer counterparty_node_id, RustBuffer channel_config, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_VERIFY_SIGNATURE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_VERIFY_SIGNATURE
-int8_t uniffi_ldk_node_fn_method_node_verify_signature(void* ptr, RustBuffer msg, RustBuffer sig, RustBuffer pkey, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_node_verify_signature(uint64_t ptr, RustBuffer msg, RustBuffer sig, RustBuffer pkey, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_WAIT_NEXT_EVENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NODE_WAIT_NEXT_EVENT
-RustBuffer uniffi_ldk_node_fn_method_node_wait_next_event(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_node_wait_next_event(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_VSSHEADERPROVIDER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_VSSHEADERPROVIDER
-void* uniffi_ldk_node_fn_clone_vssheaderprovider(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_vssheaderprovider(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_VSSHEADERPROVIDER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_VSSHEADERPROVIDER
-void uniffi_ldk_node_fn_free_vssheaderprovider(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_vssheaderprovider(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_INIT_CALLBACK_VTABLE_VSSHEADERPROVIDER
@@ -865,772 +859,772 @@ void uniffi_ldk_node_fn_init_callback_vtable_vssheaderprovider(UniffiVTableCallb
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_VSSHEADERPROVIDER_GET_HEADERS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_VSSHEADERPROVIDER_GET_HEADERS
-uint64_t uniffi_ldk_node_fn_method_vssheaderprovider_get_headers(void* ptr, RustBuffer request
+uint64_t uniffi_ldk_node_fn_method_vssheaderprovider_get_headers(uint64_t ptr, RustBuffer request
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11INVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11INVOICE
-void* uniffi_ldk_node_fn_clone_bolt11invoice(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_bolt11invoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11INVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11INVOICE
-void uniffi_ldk_node_fn_free_bolt11invoice(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_bolt11invoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BOLT11INVOICE_FROM_STR
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BOLT11INVOICE_FROM_STR
-void* uniffi_ldk_node_fn_constructor_bolt11invoice_from_str(RustBuffer invoice_str, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_bolt11invoice_from_str(RustBuffer invoice_str, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_AMOUNT_MILLI_SATOSHIS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_AMOUNT_MILLI_SATOSHIS
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_amount_milli_satoshis(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_amount_milli_satoshis(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_CURRENCY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_CURRENCY
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_currency(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_currency(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_EXPIRY_TIME_SECONDS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_EXPIRY_TIME_SECONDS
-uint64_t uniffi_ldk_node_fn_method_bolt11invoice_expiry_time_seconds(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11invoice_expiry_time_seconds(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_FALLBACK_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_FALLBACK_ADDRESSES
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_fallback_addresses(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_fallback_addresses(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_INVOICE_DESCRIPTION
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_INVOICE_DESCRIPTION
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_invoice_description(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_invoice_description(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_IS_EXPIRED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_IS_EXPIRED
-int8_t uniffi_ldk_node_fn_method_bolt11invoice_is_expired(void* ptr, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_bolt11invoice_is_expired(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_MIN_FINAL_CLTV_EXPIRY_DELTA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_MIN_FINAL_CLTV_EXPIRY_DELTA
-uint64_t uniffi_ldk_node_fn_method_bolt11invoice_min_final_cltv_expiry_delta(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11invoice_min_final_cltv_expiry_delta(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_NETWORK
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_NETWORK
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_network(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_network(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_PAYMENT_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_PAYMENT_HASH
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_payment_hash(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_payment_hash(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_PAYMENT_SECRET
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_PAYMENT_SECRET
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_payment_secret(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_payment_secret(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_RECOVER_PAYEE_PUB_KEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_RECOVER_PAYEE_PUB_KEY
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_recover_payee_pub_key(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_recover_payee_pub_key(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_ROUTE_HINTS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_ROUTE_HINTS
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_route_hints(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_route_hints(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SECONDS_SINCE_EPOCH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SECONDS_SINCE_EPOCH
-uint64_t uniffi_ldk_node_fn_method_bolt11invoice_seconds_since_epoch(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11invoice_seconds_since_epoch(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SECONDS_UNTIL_EXPIRY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SECONDS_UNTIL_EXPIRY
-uint64_t uniffi_ldk_node_fn_method_bolt11invoice_seconds_until_expiry(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11invoice_seconds_until_expiry(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SIGNABLE_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_SIGNABLE_HASH
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_signable_hash(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_signable_hash(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_WOULD_EXPIRE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_WOULD_EXPIRE
-int8_t uniffi_ldk_node_fn_method_bolt11invoice_would_expire(void* ptr, uint64_t at_time_seconds, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_bolt11invoice_would_expire(uint64_t ptr, uint64_t at_time_seconds, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_DEBUG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_DEBUG
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_debug(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_debug(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_DISPLAY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_DISPLAY
-RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_display(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_display(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_EQ_EQ
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_EQ_EQ
-int8_t uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_eq(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_eq(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_EQ_NE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11INVOICE_UNIFFI_TRAIT_EQ_NE
-int8_t uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_ne(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_bolt11invoice_uniffi_trait_eq_ne(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT11PAYMENT
-void* uniffi_ldk_node_fn_clone_bolt11payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_bolt11payment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT11PAYMENT
-void uniffi_ldk_node_fn_free_bolt11payment(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_bolt11payment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_CLAIM_FOR_HASH
-void uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(void* ptr, RustBuffer payment_hash, uint64_t claimable_amount_msat, RustBuffer preimage, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_bolt11payment_claim_for_hash(uint64_t ptr, RustBuffer payment_hash, uint64_t claimable_amount_msat, RustBuffer preimage, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_FAIL_FOR_HASH
-void uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(void* ptr, RustBuffer payment_hash, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_bolt11payment_fail_for_hash(uint64_t ptr, RustBuffer payment_hash, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE
-void* uniffi_ldk_node_fn_method_bolt11payment_receive(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive(uint64_t ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_FOR_HASH
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_for_hash(uint64_t ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(void* ptr, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount(uint64_t ptr, RustBuffer description, uint32_t expiry_secs, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_FOR_HASH
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(void* ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_for_hash(uint64_t ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer payment_hash, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(void* ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer max_proportional_lsp_fee_limit_ppm_msat, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel(uint64_t ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer max_proportional_lsp_fee_limit_ppm_msat, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VARIABLE_AMOUNT_VIA_JIT_CHANNEL_FOR_HASH
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel_for_hash(void* ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer max_proportional_lsp_fee_limit_ppm_msat, RustBuffer payment_hash, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_variable_amount_via_jit_channel_for_hash(uint64_t ptr, RustBuffer description, uint32_t expiry_secs, RustBuffer max_proportional_lsp_fee_limit_ppm_msat, RustBuffer payment_hash, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer max_total_lsp_fee_limit_msat, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel(uint64_t ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer max_total_lsp_fee_limit_msat, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL_FOR_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_RECEIVE_VIA_JIT_CHANNEL_FOR_HASH
-void* uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel_for_hash(void* ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer max_total_lsp_fee_limit_msat, RustBuffer payment_hash, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt11payment_receive_via_jit_channel_for_hash(uint64_t ptr, uint64_t amount_msat, RustBuffer description, uint32_t expiry_secs, RustBuffer max_total_lsp_fee_limit_msat, RustBuffer payment_hash, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send(void* ptr, void* invoice, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send(uint64_t ptr, uint64_t invoice, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES
-void uniffi_ldk_node_fn_method_bolt11payment_send_probes(void* ptr, void* invoice, RustBuffer route_parameters, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_bolt11payment_send_probes(uint64_t ptr, uint64_t invoice, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_PROBES_USING_AMOUNT
-void uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(void* ptr, void* invoice, uint64_t amount_msat, RustBuffer route_parameters, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_bolt11payment_send_probes_using_amount(uint64_t ptr, uint64_t invoice, uint64_t amount_msat, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT11PAYMENT_SEND_USING_AMOUNT
-RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(void* ptr, void* invoice, uint64_t amount_msat, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt11payment_send_using_amount(uint64_t ptr, uint64_t invoice, uint64_t amount_msat, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12INVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12INVOICE
-void* uniffi_ldk_node_fn_clone_bolt12invoice(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_bolt12invoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12INVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12INVOICE
-void uniffi_ldk_node_fn_free_bolt12invoice(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_bolt12invoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BOLT12INVOICE_FROM_STR
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_BOLT12INVOICE_FROM_STR
-void* uniffi_ldk_node_fn_constructor_bolt12invoice_from_str(RustBuffer invoice_str, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_bolt12invoice_from_str(RustBuffer invoice_str, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ABSOLUTE_EXPIRY_SECONDS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ABSOLUTE_EXPIRY_SECONDS
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_absolute_expiry_seconds(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_absolute_expiry_seconds(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_AMOUNT
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_amount(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_amount(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_AMOUNT_MSATS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_AMOUNT_MSATS
-uint64_t uniffi_ldk_node_fn_method_bolt12invoice_amount_msats(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12invoice_amount_msats(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_CHAIN
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_CHAIN
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_chain(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_chain(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_CREATED_AT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_CREATED_AT
-uint64_t uniffi_ldk_node_fn_method_bolt12invoice_created_at(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12invoice_created_at(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ENCODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ENCODE
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_encode(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_encode(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_FALLBACK_ADDRESSES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_FALLBACK_ADDRESSES
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_fallback_addresses(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_fallback_addresses(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_INVOICE_DESCRIPTION
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_INVOICE_DESCRIPTION
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_invoice_description(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_invoice_description(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_IS_EXPIRED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_IS_EXPIRED
-int8_t uniffi_ldk_node_fn_method_bolt12invoice_is_expired(void* ptr, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_bolt12invoice_is_expired(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ISSUER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ISSUER
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_issuer(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_issuer(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ISSUER_SIGNING_PUBKEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_ISSUER_SIGNING_PUBKEY
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_issuer_signing_pubkey(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_issuer_signing_pubkey(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_METADATA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_METADATA
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_metadata(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_metadata(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_OFFER_CHAINS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_OFFER_CHAINS
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_offer_chains(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_offer_chains(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYER_NOTE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYER_NOTE
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payer_note(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payer_note(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYER_SIGNING_PUBKEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYER_SIGNING_PUBKEY
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payer_signing_pubkey(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payer_signing_pubkey(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYMENT_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_PAYMENT_HASH
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payment_hash(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_payment_hash(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_QUANTITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_QUANTITY
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_quantity(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_quantity(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_RELATIVE_EXPIRY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_RELATIVE_EXPIRY
-uint64_t uniffi_ldk_node_fn_method_bolt12invoice_relative_expiry(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12invoice_relative_expiry(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_SIGNABLE_HASH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_SIGNABLE_HASH
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_signable_hash(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_signable_hash(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_SIGNING_PUBKEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12INVOICE_SIGNING_PUBKEY
-RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_signing_pubkey(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12invoice_signing_pubkey(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_BOLT12PAYMENT
-void* uniffi_ldk_node_fn_clone_bolt12payment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_bolt12payment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_BOLT12PAYMENT
-void uniffi_ldk_node_fn_free_bolt12payment(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_bolt12payment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_BLINDED_PATHS_FOR_ASYNC_RECIPIENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_BLINDED_PATHS_FOR_ASYNC_RECIPIENT
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_blinded_paths_for_async_recipient(void* ptr, RustBuffer recipient_id, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_blinded_paths_for_async_recipient(uint64_t ptr, RustBuffer recipient_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_INITIATE_REFUND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_INITIATE_REFUND
-void* uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(void* ptr, uint64_t amount_msat, uint32_t expiry_secs, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12payment_initiate_refund(uint64_t ptr, uint64_t amount_msat, uint32_t expiry_secs, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE
-void* uniffi_ldk_node_fn_method_bolt12payment_receive(void* ptr, uint64_t amount_msat, RustBuffer description, RustBuffer expiry_secs, RustBuffer quantity, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12payment_receive(uint64_t ptr, uint64_t amount_msat, RustBuffer description, RustBuffer expiry_secs, RustBuffer quantity, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_ASYNC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_ASYNC
-void* uniffi_ldk_node_fn_method_bolt12payment_receive_async(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12payment_receive_async(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_RECEIVE_VARIABLE_AMOUNT
-void* uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(void* ptr, RustBuffer description, RustBuffer expiry_secs, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12payment_receive_variable_amount(uint64_t ptr, RustBuffer description, RustBuffer expiry_secs, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_REQUEST_REFUND_PAYMENT
-void* uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(void* ptr, void* refund, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_bolt12payment_request_refund_payment(uint64_t ptr, uint64_t refund, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(void* ptr, void* offer, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send(uint64_t ptr, uint64_t offer, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SEND_USING_AMOUNT
-RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(void* ptr, void* offer, uint64_t amount_msat, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_bolt12payment_send_using_amount(uint64_t ptr, uint64_t offer, uint64_t amount_msat, RustBuffer quantity, RustBuffer payer_note, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SET_PATHS_TO_STATIC_INVOICE_SERVER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_BOLT12PAYMENT_SET_PATHS_TO_STATIC_INVOICE_SERVER
-void uniffi_ldk_node_fn_method_bolt12payment_set_paths_to_static_invoice_server(void* ptr, RustBuffer paths, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_bolt12payment_set_paths_to_static_invoice_server(uint64_t ptr, RustBuffer paths, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_HUMANREADABLENAME
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_HUMANREADABLENAME
-void* uniffi_ldk_node_fn_clone_humanreadablename(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_humanreadablename(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_HUMANREADABLENAME
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_HUMANREADABLENAME
-void uniffi_ldk_node_fn_free_humanreadablename(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_humanreadablename(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_HUMANREADABLENAME_FROM_ENCODED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_HUMANREADABLENAME_FROM_ENCODED
-void* uniffi_ldk_node_fn_constructor_humanreadablename_from_encoded(RustBuffer encoded, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_humanreadablename_from_encoded(RustBuffer encoded, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_DOMAIN
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_DOMAIN
-RustBuffer uniffi_ldk_node_fn_method_humanreadablename_domain(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_humanreadablename_domain(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_USER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_USER
-RustBuffer uniffi_ldk_node_fn_method_humanreadablename_user(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_humanreadablename_user(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_DEBUG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_DEBUG
-RustBuffer uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_debug(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_debug(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_DISPLAY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_DISPLAY
-RustBuffer uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_display(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_display(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_EQ_EQ
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_EQ_EQ
-int8_t uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_eq_eq(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_eq_eq(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_EQ_NE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_HUMANREADABLENAME_UNIFFI_TRAIT_EQ_NE
-int8_t uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_eq_ne(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_humanreadablename_uniffi_trait_eq_ne(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS1LIQUIDITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_LSPS1LIQUIDITY
-void* uniffi_ldk_node_fn_clone_lsps1liquidity(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_lsps1liquidity(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS1LIQUIDITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_LSPS1LIQUIDITY
-void uniffi_ldk_node_fn_free_lsps1liquidity(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_lsps1liquidity(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_CHECK_ORDER_STATUS
-RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_check_order_status(void* ptr, RustBuffer order_id, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_check_order_status(uint64_t ptr, RustBuffer order_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_LSPS1LIQUIDITY_REQUEST_CHANNEL
-RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_request_channel(void* ptr, uint64_t lsp_balance_sat, uint64_t client_balance_sat, uint32_t channel_expiry_blocks, int8_t announce_channel, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_lsps1liquidity_request_channel(uint64_t ptr, uint64_t lsp_balance_sat, uint64_t client_balance_sat, uint32_t channel_expiry_blocks, int8_t announce_channel, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NETWORKGRAPH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NETWORKGRAPH
-void* uniffi_ldk_node_fn_clone_networkgraph(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_networkgraph(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NETWORKGRAPH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NETWORKGRAPH
-void uniffi_ldk_node_fn_free_networkgraph(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_networkgraph(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_CHANNEL
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_CHANNEL
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_channel(void* ptr, uint64_t short_channel_id, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_channel(uint64_t ptr, uint64_t short_channel_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_CHANNELS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_CHANNELS
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_channels(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_channels(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_NODES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_LIST_NODES
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_nodes(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_list_nodes(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_NODE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_NETWORKGRAPH_NODE
-RustBuffer uniffi_ldk_node_fn_method_networkgraph_node(void* ptr, RustBuffer node_id, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_networkgraph_node(uint64_t ptr, RustBuffer node_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODEENTROPY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_NODEENTROPY
-void* uniffi_ldk_node_fn_clone_nodeentropy(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_nodeentropy(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODEENTROPY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_NODEENTROPY
-void uniffi_ldk_node_fn_free_nodeentropy(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_nodeentropy(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_BIP39_MNEMONIC
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_BIP39_MNEMONIC
-void* uniffi_ldk_node_fn_constructor_nodeentropy_from_bip39_mnemonic(RustBuffer mnemonic, RustBuffer passphrase, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_nodeentropy_from_bip39_mnemonic(RustBuffer mnemonic, RustBuffer passphrase, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_SEED_BYTES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_SEED_BYTES
-void* uniffi_ldk_node_fn_constructor_nodeentropy_from_seed_bytes(RustBuffer seed_bytes, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_nodeentropy_from_seed_bytes(RustBuffer seed_bytes, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_SEED_PATH
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_NODEENTROPY_FROM_SEED_PATH
-void* uniffi_ldk_node_fn_constructor_nodeentropy_from_seed_path(RustBuffer seed_path, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_nodeentropy_from_seed_path(RustBuffer seed_path, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_OFFER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_OFFER
-void* uniffi_ldk_node_fn_clone_offer(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_offer(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_OFFER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_OFFER
-void uniffi_ldk_node_fn_free_offer(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_offer(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_OFFER_FROM_STR
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_OFFER_FROM_STR
-void* uniffi_ldk_node_fn_constructor_offer_from_str(RustBuffer offer_str, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_offer_from_str(RustBuffer offer_str, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ABSOLUTE_EXPIRY_SECONDS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ABSOLUTE_EXPIRY_SECONDS
-RustBuffer uniffi_ldk_node_fn_method_offer_absolute_expiry_seconds(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_absolute_expiry_seconds(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_AMOUNT
-RustBuffer uniffi_ldk_node_fn_method_offer_amount(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_amount(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_CHAINS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_CHAINS
-RustBuffer uniffi_ldk_node_fn_method_offer_chains(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_chains(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_EXPECTS_QUANTITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_EXPECTS_QUANTITY
-int8_t uniffi_ldk_node_fn_method_offer_expects_quantity(void* ptr, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_expects_quantity(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ID
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ID
-RustBuffer uniffi_ldk_node_fn_method_offer_id(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_id(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_IS_EXPIRED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_IS_EXPIRED
-int8_t uniffi_ldk_node_fn_method_offer_is_expired(void* ptr, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_is_expired(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_IS_VALID_QUANTITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_IS_VALID_QUANTITY
-int8_t uniffi_ldk_node_fn_method_offer_is_valid_quantity(void* ptr, uint64_t quantity, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_is_valid_quantity(uint64_t ptr, uint64_t quantity, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ISSUER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ISSUER
-RustBuffer uniffi_ldk_node_fn_method_offer_issuer(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_issuer(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ISSUER_SIGNING_PUBKEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_ISSUER_SIGNING_PUBKEY
-RustBuffer uniffi_ldk_node_fn_method_offer_issuer_signing_pubkey(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_issuer_signing_pubkey(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_METADATA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_METADATA
-RustBuffer uniffi_ldk_node_fn_method_offer_metadata(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_metadata(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_OFFER_DESCRIPTION
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_OFFER_DESCRIPTION
-RustBuffer uniffi_ldk_node_fn_method_offer_offer_description(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_offer_description(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_SUPPORTS_CHAIN
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_SUPPORTS_CHAIN
-int8_t uniffi_ldk_node_fn_method_offer_supports_chain(void* ptr, RustBuffer chain, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_supports_chain(uint64_t ptr, RustBuffer chain, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_DEBUG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_DEBUG
-RustBuffer uniffi_ldk_node_fn_method_offer_uniffi_trait_debug(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_uniffi_trait_debug(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_DISPLAY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_DISPLAY
-RustBuffer uniffi_ldk_node_fn_method_offer_uniffi_trait_display(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_offer_uniffi_trait_display(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_EQ_EQ
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_EQ_EQ
-int8_t uniffi_ldk_node_fn_method_offer_uniffi_trait_eq_eq(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_uniffi_trait_eq_eq(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_EQ_NE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_OFFER_UNIFFI_TRAIT_EQ_NE
-int8_t uniffi_ldk_node_fn_method_offer_uniffi_trait_eq_ne(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_offer_uniffi_trait_eq_ne(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_ONCHAINPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_ONCHAINPAYMENT
-void* uniffi_ldk_node_fn_clone_onchainpayment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_onchainpayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_ONCHAINPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_ONCHAINPAYMENT
-void uniffi_ldk_node_fn_free_onchainpayment(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_onchainpayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_BUMP_FEE_RBF
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_BUMP_FEE_RBF
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_bump_fee_rbf(void* ptr, RustBuffer payment_id, RustBuffer fee_rate, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_bump_fee_rbf(uint64_t ptr, RustBuffer payment_id, RustBuffer fee_rate, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_NEW_ADDRESS
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_new_address(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_new_address(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_ALL_TO_ADDRESS
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(void* ptr, RustBuffer address, int8_t retain_reserves, RustBuffer fee_rate, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_all_to_address(uint64_t ptr, RustBuffer address, int8_t retain_reserves, RustBuffer fee_rate, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_ONCHAINPAYMENT_SEND_TO_ADDRESS
-RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(void* ptr, RustBuffer address, uint64_t amount_sats, RustBuffer fee_rate, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_onchainpayment_send_to_address(uint64_t ptr, RustBuffer address, uint64_t amount_sats, RustBuffer fee_rate, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_REFUND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_REFUND
-void* uniffi_ldk_node_fn_clone_refund(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_refund(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_REFUND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_REFUND
-void uniffi_ldk_node_fn_free_refund(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_refund(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_REFUND_FROM_STR
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CONSTRUCTOR_REFUND_FROM_STR
-void* uniffi_ldk_node_fn_constructor_refund_from_str(RustBuffer refund_str, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_constructor_refund_from_str(RustBuffer refund_str, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_ABSOLUTE_EXPIRY_SECONDS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_ABSOLUTE_EXPIRY_SECONDS
-RustBuffer uniffi_ldk_node_fn_method_refund_absolute_expiry_seconds(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_absolute_expiry_seconds(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_AMOUNT_MSATS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_AMOUNT_MSATS
-uint64_t uniffi_ldk_node_fn_method_refund_amount_msats(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_method_refund_amount_msats(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_CHAIN
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_CHAIN
-RustBuffer uniffi_ldk_node_fn_method_refund_chain(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_chain(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_IS_EXPIRED
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_IS_EXPIRED
-int8_t uniffi_ldk_node_fn_method_refund_is_expired(void* ptr, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_refund_is_expired(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_ISSUER
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_ISSUER
-RustBuffer uniffi_ldk_node_fn_method_refund_issuer(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_issuer(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_METADATA
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_METADATA
-RustBuffer uniffi_ldk_node_fn_method_refund_payer_metadata(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_payer_metadata(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_NOTE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_NOTE
-RustBuffer uniffi_ldk_node_fn_method_refund_payer_note(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_payer_note(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_SIGNING_PUBKEY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_PAYER_SIGNING_PUBKEY
-RustBuffer uniffi_ldk_node_fn_method_refund_payer_signing_pubkey(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_payer_signing_pubkey(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_QUANTITY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_QUANTITY
-RustBuffer uniffi_ldk_node_fn_method_refund_quantity(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_quantity(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_REFUND_DESCRIPTION
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_REFUND_DESCRIPTION
-RustBuffer uniffi_ldk_node_fn_method_refund_refund_description(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_refund_description(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_DEBUG
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_DEBUG
-RustBuffer uniffi_ldk_node_fn_method_refund_uniffi_trait_debug(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_uniffi_trait_debug(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_DISPLAY
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_DISPLAY
-RustBuffer uniffi_ldk_node_fn_method_refund_uniffi_trait_display(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_refund_uniffi_trait_display(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_EQ_EQ
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_EQ_EQ
-int8_t uniffi_ldk_node_fn_method_refund_uniffi_trait_eq_eq(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_refund_uniffi_trait_eq_eq(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_EQ_NE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_REFUND_UNIFFI_TRAIT_EQ_NE
-int8_t uniffi_ldk_node_fn_method_refund_uniffi_trait_eq_ne(void* ptr, void* other, RustCallStatus *out_status
+int8_t uniffi_ldk_node_fn_method_refund_uniffi_trait_eq_ne(uint64_t ptr, uint64_t other, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_SPONTANEOUSPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_SPONTANEOUSPAYMENT
-void* uniffi_ldk_node_fn_clone_spontaneouspayment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_spontaneouspayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_SPONTANEOUSPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_SPONTANEOUSPAYMENT
-void uniffi_ldk_node_fn_free_spontaneouspayment(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_spontaneouspayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send(uint64_t ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_PROBES
-void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustCallStatus *out_status
+void uniffi_ldk_node_fn_method_spontaneouspayment_send_probes(uint64_t ptr, uint64_t amount_msat, RustBuffer node_id, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_CUSTOM_TLVS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_CUSTOM_TLVS
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_custom_tlvs(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer route_parameters, RustBuffer custom_tlvs, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_custom_tlvs(uint64_t ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer route_parameters, RustBuffer custom_tlvs, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_PREIMAGE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_PREIMAGE
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_preimage(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer preimage, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_preimage(uint64_t ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer preimage, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_PREIMAGE_AND_CUSTOM_TLVS
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_SPONTANEOUSPAYMENT_SEND_WITH_PREIMAGE_AND_CUSTOM_TLVS
-RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_preimage_and_custom_tlvs(void* ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer custom_tlvs, RustBuffer preimage, RustBuffer route_parameters, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_spontaneouspayment_send_with_preimage_and_custom_tlvs(uint64_t ptr, uint64_t amount_msat, RustBuffer node_id, RustBuffer custom_tlvs, RustBuffer preimage, RustBuffer route_parameters, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_STATICINVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_STATICINVOICE
-void* uniffi_ldk_node_fn_clone_staticinvoice(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_staticinvoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_STATICINVOICE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_STATICINVOICE
-void uniffi_ldk_node_fn_free_staticinvoice(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_staticinvoice(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_STATICINVOICE_AMOUNT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_STATICINVOICE_AMOUNT
-RustBuffer uniffi_ldk_node_fn_method_staticinvoice_amount(void* ptr, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_staticinvoice_amount(uint64_t ptr, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_UNIFIEDPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_CLONE_UNIFIEDPAYMENT
-void* uniffi_ldk_node_fn_clone_unifiedpayment(void* ptr, RustCallStatus *out_status
+uint64_t uniffi_ldk_node_fn_clone_unifiedpayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_UNIFIEDPAYMENT
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FREE_UNIFIEDPAYMENT
-void uniffi_ldk_node_fn_free_unifiedpayment(void* ptr, RustCallStatus *out_status
+void uniffi_ldk_node_fn_free_unifiedpayment(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDPAYMENT_RECEIVE
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDPAYMENT_RECEIVE
-RustBuffer uniffi_ldk_node_fn_method_unifiedpayment_receive(void* ptr, uint64_t amount_sats, RustBuffer description, uint32_t expiry_sec, RustCallStatus *out_status
+RustBuffer uniffi_ldk_node_fn_method_unifiedpayment_receive(uint64_t ptr, uint64_t amount_sats, RustBuffer description, uint32_t expiry_sec, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDPAYMENT_SEND
 #define UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_METHOD_UNIFIEDPAYMENT_SEND
-uint64_t uniffi_ldk_node_fn_method_unifiedpayment_send(void* ptr, RustBuffer uri_str, RustBuffer amount_msat, RustBuffer route_parameters
+uint64_t uniffi_ldk_node_fn_method_unifiedpayment_send(uint64_t ptr, RustBuffer uri_str, RustBuffer amount_msat, RustBuffer route_parameters
 );
 #endif
 #ifndef UNIFFI_FFIDEF_UNIFFI_LDK_NODE_FN_FUNC_DEFAULT_CONFIG
@@ -1862,26 +1856,6 @@ void ffi_ldk_node_rust_future_free_f64(uint64_t handle
 #ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F64
 #define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_F64
 double ffi_ldk_node_rust_future_complete_f64(uint64_t handle, RustCallStatus *out_status
-);
-#endif
-#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_POINTER
-#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_POINTER
-void ffi_ldk_node_rust_future_poll_pointer(uint64_t handle, UniffiRustFutureContinuationCallback callback, uint64_t callback_data
-);
-#endif
-#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_POINTER
-#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_CANCEL_POINTER
-void ffi_ldk_node_rust_future_cancel_pointer(uint64_t handle
-);
-#endif
-#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_POINTER
-#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_FREE_POINTER
-void ffi_ldk_node_rust_future_free_pointer(uint64_t handle
-);
-#endif
-#ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_POINTER
-#define UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_COMPLETE_POINTER
-void* ffi_ldk_node_rust_future_complete_pointer(uint64_t handle, RustCallStatus *out_status
 );
 #endif
 #ifndef UNIFFI_FFIDEF_FFI_LDK_NODE_RUST_FUTURE_POLL_RUST_BUFFER
@@ -3061,8 +3035,10 @@ uint32_t ffi_ldk_node_uniffi_contract_version(void
 
  void ldk_node_cgo_dispatchCallbackInterfaceLogWriterMethod0(uint64_t uniffi_handle, RustBuffer record, void* uniffi_out_return, RustCallStatus* callStatus );
  void ldk_node_cgo_dispatchCallbackInterfaceLogWriterFree(uint64_t handle);
- void ldk_node_cgo_dispatchCallbackInterfaceVssHeaderProviderMethod0(uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFuture* uniffi_out_return);
+uint64_t ldk_node_cgo_dispatchCallbackInterfaceLogWriterClone(uint64_t handle);
+ void ldk_node_cgo_dispatchCallbackInterfaceVssHeaderProviderMethod0(uint64_t uniffi_handle, RustBuffer request, UniffiForeignFutureCompleteRustBuffer uniffi_future_callback, uint64_t uniffi_callback_data, UniffiForeignFutureDroppedCallbackStruct* uniffi_out_dropped_callback);
  void ldk_node_cgo_dispatchCallbackInterfaceVssHeaderProviderFree(uint64_t handle);
+uint64_t ldk_node_cgo_dispatchCallbackInterfaceVssHeaderProviderClone(uint64_t handle);
 
 void ldk_node_uniffiFutureContinuationCallback(uint64_t, int8_t);
 void ldk_node_uniffiFreeGorutine(uint64_t);
